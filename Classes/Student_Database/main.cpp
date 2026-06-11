@@ -1,71 +1,8 @@
 #include <iostream>
 #include <vector>
+#include "student.h"
 
 using namespace std;
-
-class Student {
-    public:
-    Student(string n, int i, vector<double> v){
-        cout << "Constructor called!!" << endl;
-        name = n;
-        id = i;
-        for(double score : v){
-            if(score >= 0.0 && score <= 4.0){
-                scores.push_back(score);
-            }
-        }
-    }
-    
-    void addNewScore(double score){
-        if(score >= 0.0 && score <= 4.0){
-            scores.push_back(score);
-        } else {
-            cout << "Invalid score - not added to scores vector." << endl;
-        }
-    }
-
-    double computeGpa() const {
-        double avg = 0;
-        for(double score : scores){
-            avg += score;
-        }
-        avg /= (double)scores.size();
-        return avg;
-    }
-
-    void setName(string n){
-        name = n;
-    }
-
-    string getName() const {
-        return name;
-    }
-
-    void setId(int i){
-        id = i;
-    }
-
-    int getId() const {
-        return id;
-    }
-
-    void setScores(vector<double> v){
-        for(double score : v){
-            if(score >= 0.0 && score <= 4.0){
-                scores.push_back(score);
-            }
-        }
-    }
-
-    vector<double> getScores() const {
-        return scores;
-    }
-
-    private:
-    string name;
-    int id;
-    vector<double> scores;
-};
 
 int main(){
     vector<Student> students;
@@ -73,12 +10,12 @@ int main(){
     //Student s1("Bob", 801123123, {3.0, 3.0, 4.0, 8.0});
     //students.push_back(s1);
 
-    students.push_back(Student("Bob", 801123123, {3.0, 3.0, 4.0, 8.0}))
+    students.push_back(Student("Bob", {3.0, 3.0, 4.0, 8.0}));
 
     //Student s2("Joe", 801123124, {4.0, 4.0, 4.0});
     //students.push_back(s2);
 
-    students.push_back(Student("Joe", 801123124, {4.0, 4.0, 4.0}));
+    students.push_back(Student("Joe", {4.0, 4.0, 4.0}));
 
     for(Student s : students){
         cout << "Name: " << s.getName() << endl;
