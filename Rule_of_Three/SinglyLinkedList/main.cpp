@@ -23,6 +23,64 @@ class List {
         head = nullptr;
     }
 
+    ~List(){
+        if(head == nullptr)
+            return;
+
+        while(head != nullptr){
+            Node* nextNode = head->next;
+            delete head;
+            head = nextNode;
+        }
+    }
+
+    List(const List& other){
+        if(other.head == nullptr){
+            head = nullptr;
+            return;
+        }
+
+        head = new Node(other.head->data);
+
+        Node* otherCurrentNode = other.head;
+        Node* myCurrentNode = head;
+        while(otherCurrentNode->next != nullptr){
+            otherCurrentNode = otherCurrentNode->next;
+            myCurrentNode->next = new Node(otherCurrentNode->data);
+            myCurrentNode = myCurrentNode->next;
+        }
+    }
+
+    void operator=(const List& other){
+        if(this == &other){
+            return;
+        }
+
+        if(head == nullptr)
+            return;
+
+        while(head != nullptr){
+            Node* nextNode = head->next;
+            delete head;
+            head = nextNode;
+        }
+
+        if(other.head == nullptr){
+            head = nullptr;
+            return;
+        }
+
+        head = new Node(other.head->data);
+
+        Node* otherCurrentNode = other.head;
+        Node* myCurrentNode = head;
+        while(otherCurrentNode->next != nullptr){
+            otherCurrentNode = otherCurrentNode->next;
+            myCurrentNode->next = new Node(otherCurrentNode->data);
+            myCurrentNode = myCurrentNode->next;
+        }
+    }
+
     void push_back(int data){
         if(head == nullptr){
             head = new Node(data);
@@ -106,6 +164,12 @@ int main(){
     list.insert(1, 9); // head -> 5 -> 9 -> 3 -> 7 -> nullptr
 
     list.pop_back();   // head -> 5 -> 9 -> 3 -> nullptr
+
+    List list2 = list;
+
+    list2.push_back(13);
+
+    list = list2;
 
     for(int i = 0; i < list.size(); i++){
         cout << list.at(i) << endl;
