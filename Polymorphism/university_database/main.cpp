@@ -19,6 +19,8 @@ class Person {
         return id;
     }
 
+    virtual string toString() const = 0;
+
     protected:
     string name;
     int id;
@@ -102,11 +104,21 @@ class Faculty : public Person {
 };
 
 int main(){
-    Student s("Bob", {4.0, 4.0, 3.0, 4.0});
-    Faculty f("Sam", 84000, {"C++", "Embedded Systems", "Robotics"});
+    Student s1("Bob", {4.0, 4.0, 3.0, 4.0});
+    Student s2("Joe", {3.0, 2.0, 3.0, 2.0});
+    Faculty f1("Sam", 84000, {"C++", "Embedded Systems", "Robotics"});
+    Faculty f2("Jim", 150000, {"Advanced Embedded Systems", "Embedded Systems", "Robotics"});
 
-    cout << s.toString() << endl;
-    cout << f.toString() << endl;
+    Person p("Bob2");
+
+    vector<Person*> database;
+    database.push_back(&s1);
+    database.push_back(&s2);
+    database.push_back(&f1);
+    database.push_back(&f2);
+
+    for(int i = 0; i < database.size(); i++)
+        cout << database.at(i)->toString() << endl;
 
     return 0;
 }
